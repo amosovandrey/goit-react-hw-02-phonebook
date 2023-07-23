@@ -7,8 +7,8 @@
   padding-top: 24px;
   padding-bottom: 24px;
   margin: 24px auto;
-  background-color: #5b8fb9;
-  border-radius: 16px;
+  background-color: #301e67;
+  border-radius: 8px;
   gap: 24px;
   border: 2px solid whitesmoke;
 }
@@ -20,9 +20,10 @@
   align-items: center;
   padding: 24px;
   gap: 24px;
-  border-bottom: 2px solid whitesmoke;
-  border-top: 2px solid whitesmoke;
+  border: 2px solid whitesmoke;
+
   min-width: 320px;
+  background-color: #5b8fb9;
 }
 
 .input {
