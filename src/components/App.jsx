@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
 import css from './App.module.css';
+
+import React, { Component } from 'react';
 
 import { nanoid } from 'nanoid';
 
@@ -7,6 +8,7 @@ class App extends Component {
   state = {
     contacts: [],
     name: '',
+    number: '',
   };
 
   id = nanoid();
@@ -18,21 +20,23 @@ class App extends Component {
 
   handleSubmit = evt => {
     evt.preventDefault();
-    const { name } = this.state;
+    const { name, number } = this.state;
 
     const newContact = {
       id: nanoid(),
       name: name,
+      number: number,
     };
 
     this.setState(prevState => ({
       contacts: [...prevState.contacts, newContact],
-      name: '',
     }));
+
+    this.reset();
   };
 
   reset = () => {
-    this.setState({ contacts: [], name: '' });
+    this.setState({ name: '', number: '' });
   };
   render() {
     const { name, contacts } = this.state;
@@ -50,8 +54,21 @@ class App extends Component {
                 id={name}
                 type="text"
                 name="name"
-                pattern="^[a-zA-Zа-яА-Я]+(([' \\-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
+                pattern="^[a-zA-Zа-яА-Я]+(([ '-][a-zA-Zа-яА-Я ])?[a-zA-Zа-яА-Я]*)*$"
                 title="Name may contain only letters, apostrophe, dash and spaces. For example Adrian, Jacob Mercer, Charles de Batz de Castelmore d'Artagnan"
+                required
+              />
+            </label>
+            <label className={css.label} htmlFor={this.id}>
+              Number:
+              <input
+                className={css.input}
+                value={this.state.number}
+                onChange={this.handleInputChange}
+                id={name}
+                name="number"
+                pattern="\+?\d{1,4}?[-.\s]?\(?.{1,3}?\)?[-.\s]?\d{1,4}[-.\s]?\d{1,4}[-.\s]?\d{1,9}"
+                title="Phone number must be digits and can contain spaces, dashes, parentheses and can start with +"
                 required
               />
             </label>
@@ -65,7 +82,8 @@ class App extends Component {
           <ul className={css.list}>
             {contacts.map(contact => (
               <li className={css.list__item} key={contact.id}>
-                {contact.name}
+                <span>{contact.name}:</span>
+                <span className={css.list__item__number}>{contact.number}</span>
               </li>
             ))}
           </ul>
