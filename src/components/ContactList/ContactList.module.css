@@ -1,0 +1,21 @@
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 240px;
+}
+
+.list__item {
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: flex-end;
+  gap: 16px;
+  font-size: 14px;
+  font-weight: bolder;
+  color: #301e67;
+  letter-spacing: 0.05rem;
+  text-transform: capitalize;
+}
