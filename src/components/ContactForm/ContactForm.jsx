@@ -9,12 +9,23 @@ class ContactForm extends Component {
 
   handleInputChange = evt => {
     const { name, value } = evt.currentTarget;
+
     this.setState({ [name]: value });
   };
 
   handleSubmit = evt => {
     evt.preventDefault();
     const { name, number } = this.state;
+    const { contacts } = this.props;
+
+    const isDuplicate = contacts.some(
+      contact => contact.name.toLowerCase() === name.toLowerCase()
+    );
+
+    if (isDuplicate) {
+      alert(`${name} is already in contacts`);
+      return;
+    }
 
     const newContact = {
       id: nanoid(),
@@ -22,11 +33,12 @@ class ContactForm extends Component {
       number: number,
     };
 
-    this.setState(prevState => ({
-      contacts: [...prevState.contacts, newContact],
-    }));
-
+    this.props.onAddContact(newContact);
     this.reset();
+  };
+
+  reset = () => {
+    this.setState({ name: '', number: '' });
   };
 
   render() {
